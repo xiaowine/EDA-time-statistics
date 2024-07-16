@@ -1,0 +1,29 @@
+{
+  "name": "嘉立创EDA项目时长统计",
+  "description": "个人开发，非官方--看你一个项目要水多少时间",
+  "version": "1",
+  "manifest_version": 3,
+  "action": {
+    "default_icon": "icon.png",
+    "default_popup": "popup.html"
+  },
+  "background": {
+    "service_worker": "background.js"
+  },
+  "permissions": [
+    "tabs",
+    "activeTab",
+    "storage"
+  ],
+  "content_scripts": [
+    {
+      "matches": [
+        "https://pro.lceda.cn/editor?entry=sch"
+      ],
+      "all_frames": true,
+      "js": [
+        "content-script.js"
+      ]
+    }
+  ]
+}

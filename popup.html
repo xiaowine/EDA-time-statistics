@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>嘉立创EDA项目时长统计</title>
+    <style>
+        /* Resetting margin and padding globally */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Msans', Arial, sans-serif;
+            padding: 20px;
+            background-color: #f4f4f9;
+            color: #333;
+            width: 400px;
+            /* Change to max-width for responsiveness */
+            height: auto;
+            /* Remove fixed height */
+            overflow: hidden;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            margin: 0 auto;
+            /* Center align content */
+        }
+
+
+        ul::-webkit-scrollbar {
+            width: 0;
+            /* 隐藏滚动条宽度 */
+        }
+
+        ul::-webkit-scrollbar-track {
+            background: transparent;
+            /* 设置滚动条轨道背景色为透明 */
+        }
+
+        ul::-webkit-scrollbar-thumb {
+            background: transparent;
+            /* 设置滚动条手柄背景色为透明 */
+        }
+
+        h1 {
+            font-size: 24px;
+            text-align: center;
+            color: #444;
+            margin-top: 0;
+            margin-bottom: 20px;
+        }
+
+        ul {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+            overflow-y: auto;
+            max-height: 360px;
+            margin-bottom: 20px;
+        }
+
+        li {
+            background: #fff;
+            margin-bottom: 15px;
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .info-container {
+            flex: 1;
+        }
+
+        .title {
+            font-weight: bold;
+            font-size: 18px;
+            margin-bottom: 5px;
+        }
+
+        .id,
+        .time {
+            color: #777;
+            font-size: 14px;
+        }
+
+        .button-group {
+            margin: 10px 0;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        button {
+            width: 100%;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s ease;
+            /* Add smooth transition */
+        }
+
+        button#clearData {
+            background-color: #ff4b5c;
+            color: white;
+        }
+
+        button#clearData:hover {
+            background-color: #ff1a32;
+        }
+
+        button#exportData,
+        button#importData {
+            width: calc(50% - 5px);
+            background-color: #3498db;
+            color: white;
+        }
+
+        button#exportData:hover,
+        button#importData:hover {
+            background-color: #2980b9;
+        }
+
+        input#importFile {
+            display: none;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>嘉立创EDA项目时长统计</h1>
+    <ul id="content"></ul>
+    <div>
+        <button id="clearData">清除所有数据</button>
+    </div>
+    <div class="button-group">
+        <button id="exportData">导出数据</button>
+        <input type="file" id="importFile" accept=".json">
+        <button id="importData">导入数据</button>
+    </div>
+    <script src="popup.js"></script>
+</body>
+
+</html>
