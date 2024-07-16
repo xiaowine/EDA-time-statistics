@@ -29,7 +29,6 @@
             /* Center align content */
         }
 
-
         ul::-webkit-scrollbar {
             width: 0;
             /* 隐藏滚动条宽度 */
@@ -116,14 +115,16 @@
         }
 
         button#exportData,
-        button#importData {
-            width: calc(50% - 5px);
+        button#importData,
+        button#refreshData {
+            width: calc(33.33% - 5px);
             background-color: #3498db;
             color: white;
         }
 
         button#exportData:hover,
-        button#importData:hover {
+        button#importData:hover,
+        button#refreshData:hover {
             background-color: #2980b9;
         }
 
@@ -143,6 +144,7 @@
         <button id="exportData">导出数据</button>
         <input type="file" id="importFile" accept=".json">
         <button id="importData">导入数据</button>
+        <button id="refreshData">刷新</button>
     </div>
     <script src="popup.js"></script>
 </body>
