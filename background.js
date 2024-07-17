@@ -155,3 +155,47 @@ function saveAllPages() {
 
 // 每 5 分钟执行一次保存
 setInterval(saveAllPages, 5 * 60 * 1000);
+
+// Service Worker 主入口点
+self.addEventListener('install', async () => {
+	console.log('Service Worker installing...');
+	// 在安装时启动心跳
+	await startHeartbeat();
+});
+
+// 心跳函数定义
+let heartbeatInterval;
+
+async function runHeartbeat() {
+	await chrome.storage.local.set({ 'last-heartbeat': new Date().getTime() });
+}
+
+async function startHeartbeat() {
+	// 在Service Worker启动时立即运行一次心跳
+	await runHeartbeat();
+	// 然后每20秒运行一次
+	heartbeatInterval = setInterval(runHeartbeat, 20 * 1000);
+}
+
+async function stopHeartbeat() {
+	if (heartbeatInterval) {
+		clearInterval(heartbeatInterval);
+		heartbeatInterval = null;
+	}
+}
+
+// Service Worker 激活事件
+self.addEventListener('activate', async () => {
+	console.log('Service Worker activating...');
+	// 激活时，可能需要清理旧的心跳间隔
+	await stopHeartbeat();
+	// 然后重新启动心跳
+	await startHeartbeat();
+});
+
+// 当Service Worker即将被关闭时
+self.addEventListener('beforeunload', async () => {
+	console.log('Service Worker beforeunload...');
+	// 停止心跳
+	await stopHeartbeat();
+});
