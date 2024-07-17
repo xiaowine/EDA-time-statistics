@@ -2,6 +2,24 @@
 document.addEventListener('DOMContentLoaded', function () {
     let content = document.getElementById('content');
 
+    // 格式化时间为 "小时:分钟:秒"
+    function formatTime(seconds) {
+        let hrs = Math.floor(seconds / 3600);
+        let mins = Math.floor((seconds % 3600) / 60);
+        let secs = Math.floor(seconds % 60);
+
+        let formattedTime = '';
+        if (hrs > 0) {
+            formattedTime += `${hrs}小时 `;
+        }
+        if (mins > 0) {
+            formattedTime += `${mins}分钟 `;
+        }
+        formattedTime += `${secs}秒`;
+
+        return formattedTime;
+    }
+
     // 显示所有存储的数据，并按时间从长到短排序
     function showStoredData() {
         chrome.storage.local.get(null, function (items) {
@@ -14,25 +32,34 @@ document.addEventListener('DOMContentLoaded', function () {
 
             if (sortedItems.length === 0) {
                 content.innerHTML = '<p>没有数据</p>';
-                document.body.style.overflowY = 'hidden'; // 没有数据时隐藏垂直滚动条
             } else {
                 content.innerHTML = ''; // 清空内容再重新渲染
                 sortedItems.forEach(item => {
                     let listItem = document.createElement('li');
-                    listItem.innerHTML = `
-                        <div class="info-container">
-                            <div class="title">项目标题: ${item.title}</div>
-                            <div class="id">项目ID: ${item.id}</div>
-                            <div class="time">总计时间: ${item.time} 秒</div>
-                        </div>
-                        <div>
-                            <button class="delete-btn" data-id="${item.id}">删除</button>
-                        </div>
-                    `;
+                    if (item.title === "主界面") {
+                        listItem.innerHTML = `
+                            <div class="info-container">
+                                <div class="title">主界面</div>
+                                <div class="id">不是哥们!<br/>你怎么能在主界面水这么久时间</div>
+                                <div class="time">总计时间: ${formatTime(item.time)}</div>
+                            </div>
+                            <div>
+                                <button class="delete-btn" data-id="${item.id}">删除</button>
+                            </div>`;
+                    } else {
+                        listItem.innerHTML = `
+                            <div class="info-container">
+                                <div class="title">项目标题: ${item.title}</div>
+                                <div class="id">项目ID: ${item.id}</div>
+                                <div class="time">总计时间: ${formatTime(item.time)}</div>
+                            </div>
+                            <div>
+                                <button class="delete-btn" data-id="${item.id}">删除</button>
+                            </div>`;
+                    }
                     listItem.classList.add('list-item'); // 添加类名以便稍后定位
                     content.appendChild(listItem);
                 });
-                // document.body.style.overflowY = 'auto'; // 显示垂直滚动条
             }
         });
     }
@@ -49,7 +76,6 @@ document.addEventListener('DOMContentLoaded', function () {
                 event.target.closest('.list-item').remove();
                 if (content.children.length === 0) {
                     content.innerHTML = '<p>没有数据</p>';
-                    // document.body.style.overflowY = 'hidden'; // 隐藏垂直滚动条
                 }
             });
         }
@@ -59,7 +85,6 @@ document.addEventListener('DOMContentLoaded', function () {
     document.getElementById('clearData').addEventListener('click', function () {
         chrome.storage.local.clear(function () {
             content.innerHTML = '<p>所有数据已清除</p>';
-            document.body.style.overflowY = 'hidden'; // 隐藏垂直滚动条
         });
     });
 

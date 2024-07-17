@@ -1,0 +1,20 @@
+name: Pack Workflow
+on:
+    push:
+      branches: [ main ]
+      paths-ignore:
+        - 'README.md'
+    pull_request:    
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+    - name: Compress project directory
+      run: zip -r project.zip  .
+      
+    - name: Upload compressed file
+      uses: actions/upload-artifact@v3
+      with:
+        name: project-artifact
+        path: project.zip
