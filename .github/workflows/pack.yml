@@ -12,11 +12,11 @@ jobs:
     - uses: actions/checkout@v4
 
     - name: Create compressed file
-      run: npm install crx && crx pack -o EDA-time-statistics.crx
+      run: npm install -g crx && crx pack -o EDA-time-statistics.crx
 
     - uses: actions/setup-node@v4
       with:
-        node-version: 18
+        node-version: 20
         
     - name: Upload compressed file
       uses: actions/upload-artifact@v4
