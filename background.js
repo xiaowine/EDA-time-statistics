@@ -153,5 +153,5 @@ function saveAllPages() {
 	}
 }
 
-// 每 1 分钟执行一次保存
-setInterval(saveAllPages, 1 * 60 * 1000);
+// 每 5 分钟执行一次保存
+setInterval(saveAllPages, 5 * 60 * 1000);

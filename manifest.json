@@ -13,7 +13,8 @@
   "permissions": [
     "tabs",
     "activeTab",
-    "storage"
+    "storage",
+    "alarms"
   ],
   "icons": {
     "48": "icon.png",
