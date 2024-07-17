@@ -15,6 +15,10 @@
     "activeTab",
     "storage"
   ],
+  "icons": {
+    "48": "icon.png",
+    "128": "icon.png"
+  },
   "content_scripts": [
     {
       "matches": [
