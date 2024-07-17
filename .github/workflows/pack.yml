@@ -11,10 +11,10 @@ jobs:
     steps:
     - uses: actions/checkout@v4
     - name: Compress project directory
-      run: zip -r project.zip  .
+      run: zip -r project.crx  .
       
     - name: Upload compressed file
       uses: actions/upload-artifact@v4
       with:
         name: project-artifact
-        path: project.zip
+        path: project.crx
