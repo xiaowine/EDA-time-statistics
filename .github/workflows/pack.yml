@@ -10,11 +10,16 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v4
-    - name: Compress project directory
-      run: zip -r project.crx  .
-      
+
+    - name: Create compressed file
+      run: npm install crx && crx pack -o EDA-time-statistics.crx
+
+    - uses: actions/setup-node@v4
+      with:
+        node-version: 20
+        
     - name: Upload compressed file
       uses: actions/upload-artifact@v4
       with:
         name: project-artifact
-        path: project.crx
+        path: EDA-time-statistics.crx
