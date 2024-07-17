@@ -49,7 +49,7 @@ document.addEventListener('DOMContentLoaded', function () {
                     } else {
                         listItem.innerHTML = `
                             <div class="info-container">
-                                <div class="title">项目标题: ${item.title}</div>
+                                <div class="title">${item.title}</div>
                                 <div class="id">项目ID: ${item.id}</div>
                                 <div class="time">总计时间: ${formatTime(item.time)}</div>
                             </div>

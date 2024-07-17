@@ -69,7 +69,7 @@ function extractId(url) {
 // 提取标题
 function extractTitle(fullTitle) {
 	try {
-		const regex = /^(.*?)\s*\|\s*嘉立创EDA\(专业版\)\s*-/;
+		const regex = /^(.*?)\s*(?:\|\s*.*)?\s*\|\s*嘉立创EDA\(专业版\)\s*-/;
 		const match = fullTitle.match(regex);
 		return match ? match[1] : "主界面";
 	} catch (error) {
