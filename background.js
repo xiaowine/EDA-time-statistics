@@ -11,6 +11,7 @@ var pageInfo = {};
 
 // 标签页关闭事件监听器
 chrome.tabs.onRemoved.addListener(function (tabId, removeInfo) {
+	console.log(`[关闭事件] 标签页 ${tabId} 已关闭`);
 	close(tabId);
 });
 
@@ -152,5 +153,5 @@ function saveAllPages() {
 	}
 }
 
-// 每 5 分钟执行一次保存
-setInterval(saveAllPages, 5 * 60 * 1000);
+// 每 1 分钟执行一次保存
+setInterval(saveAllPages, 1 * 60 * 1000);
