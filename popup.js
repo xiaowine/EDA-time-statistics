@@ -29,12 +29,12 @@ document.addEventListener('DOMContentLoaded', function () {
                 title: items[id].title,
                 time: items[id].time
             })).sort((a, b) => b.time - a.time); // 降序排序
-
             if (sortedItems.length === 0) {
                 content.innerHTML = '<p>没有数据</p>';
             } else {
                 content.innerHTML = ''; // 清空内容再重新渲染
                 sortedItems.forEach(item => {
+                    if (item.title == undefined) return;
                     let listItem = document.createElement('li');
                     if (item.title === "主界面") {
                         listItem.innerHTML = `

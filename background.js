@@ -156,6 +156,15 @@ function saveAllPages() {
 // 每 5 分钟执行一次保存
 setInterval(saveAllPages, 5 * 60 * 1000);
 
+
+
+
+
+
+
+
+
+
 // Service Worker 主入口点
 self.addEventListener('install', async () => {
 	console.log('Service Worker installing...');
@@ -193,9 +202,42 @@ self.addEventListener('activate', async () => {
 	await startHeartbeat();
 });
 
+// Service Worker 消息事件
+self.addEventListener('message', async (event) => {
+	if (event.data === 'stopHeartbeat') {
+		console.log('Stopping heartbeat...');
+		await stopHeartbeat();
+	} else if (event.data === 'startHeartbeat') {
+		console.log('Starting heartbeat...');
+		await startHeartbeat();
+	}
+});
+
+// Service Worker Fetch 事件
+self.addEventListener('fetch', (event) => {
+	// 在处理fetch事件时，可以临时启动心跳以保持活跃
+	console.log('Handling fetch event...');
+	// 这里可以根据需要决定是否启动心跳
+});
+
 // 当Service Worker即将被关闭时
 self.addEventListener('beforeunload', async () => {
 	console.log('Service Worker beforeunload...');
 	// 停止心跳
 	await stopHeartbeat();
+});
+
+// 监听并处理错误，确保Service Worker稳定运行
+self.addEventListener('error', (event) => {
+	console.error('Service Worker error:', event);
+});
+
+// 监听并处理安装失败事件
+self.addEventListener('installerror', (event) => {
+	console.error('Service Worker install error:', event);
+});
+
+// 监听并处理活动失败事件
+self.addEventListener('activateerror', (event) => {
+	console.error('Service Worker activate error:', event);
 });
